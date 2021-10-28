@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { computeMsgId } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EMPTY } from 'rxjs';
@@ -15,8 +14,8 @@ export class ProductService {
   baseUrl = ' http://localhost:3001/products'
 
   constructor(private sackBar: MatSnackBar, private http: HttpClient) { }
-  
-  showMessage(msg: string, isError: boolean = false): void { 
+
+  showMessage(msg: string, isError: boolean = false): void {
     this.sackBar.open(msg, 'X', {
       duration: 3000,
       horizontalPosition: "right",
@@ -37,13 +36,22 @@ export class ProductService {
       catchError((err) => this.handleError(err))
     );
   }
-  handleError(err: any): Observable<any> {
-    this.showMessage("Ocorreu um erro!", true);
-    return EMPTY;
-  }
 
   update(product: Product): Observable<Product> {
     const url = `${this.baseUrl}/${product.id}`;
     return this.http.put<Product>(url, product);
   }
+  delete(id: number): Observable<Product> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.delete<Product>(url).pipe(
+      map((obj) => obj),
+      catchError((err) => this.handleError(err))
+    );
+  }
+
+  handleError(err: any): Observable<any> {
+    this.showMessage("Ocorreu um erro!", true);
+    return EMPTY;
+  }
+
 }

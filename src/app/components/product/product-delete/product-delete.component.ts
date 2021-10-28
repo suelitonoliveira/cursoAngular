@@ -4,14 +4,13 @@ import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 
 @Component({
-  selector: 'app-product-update',
-  templateUrl: './product-update.component.html',
-  styleUrls: ['./product-update.component.css']
+  selector: 'app-product-delete',
+  templateUrl: './product-delete.component.html',
+  styleUrls: ['./product-delete.component.css']
 })
-export class ProductUpdateComponent implements OnInit {
+export class ProductDeleteComponent implements OnInit {
 
   product!: Product;
-
 
   constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
 
@@ -22,9 +21,9 @@ export class ProductUpdateComponent implements OnInit {
     });
   }
 
-  updateProduct(): void {
-    this.productService.update(this.product).subscribe(data => {
-      this.productService.showMessage("Produto atualizado com Sucesso!")
+  delete(): void {
+    this.productService.delete(this.product.id!).subscribe(() => {
+      this.productService.showMessage("Produto deletado com Sucesso!")
       this.router.navigate(['/products']);
     })
   }
@@ -33,8 +32,4 @@ export class ProductUpdateComponent implements OnInit {
     this.router.navigate(['/products']);
   }
 
-
-
 }
-
-

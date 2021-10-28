@@ -4,3 +4,13 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .v-middlename { vertical-align: middle;}
+
+.msg-success{
+    background-color: #7986cb;
+    color: #fff;
+}
+
+.msg-error{
+    background-color: #FF6347;
+    color: #fff;
+}

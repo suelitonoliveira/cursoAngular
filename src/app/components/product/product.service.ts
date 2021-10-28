@@ -24,7 +24,10 @@ export class ProductService {
     });
   }
   create(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.baseUrl, product);
+    return this.http.post<Product>(this.baseUrl, product).pipe(
+      map(obj => obj),
+      catchError((err) => this.handleError(err))
+      );
   }
   read(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl);
@@ -39,7 +42,10 @@ export class ProductService {
 
   update(product: Product): Observable<Product> {
     const url = `${this.baseUrl}/${product.id}`;
-    return this.http.put<Product>(url, product);
+    return this.http.put<Product>(url, product).pipe(
+      map((obj) => obj),
+      catchError((err) => this.handleError(err))
+    );;
   }
   delete(id: number): Observable<Product> {
     const url = `${this.baseUrl}/${id}`;
